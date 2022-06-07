@@ -10,6 +10,9 @@
 ## Why did I build this project?
 I try to create boilerplate of NESTJS which used Typescript as well as Nodejs in 3 tier architecture. I have tried to create basic boiler-plate which we can use while create new project and develop project in standard approach.
 
+## What is the workflow of this project?
+This project has tried to write API as well as documentation using OpenAPI(Swagger). It has used `JWT authentication` using `passport js`.
+
 ### Prerequisites
 ```
 Nodejs(>= 10.13.0)
@@ -18,11 +21,11 @@ Nodejs(>= 10.13.0)
 ### Technologies
 ***
 A list of technologies used within the project:
-```
-* [TypeScript]
-* [NodeJs]
-* [TypeORM]
-```
+* TypeScript
+* NodeJs
+* TypeORM
+* Swagger
+
 
 ### How to install and run NESTJS project?
 ***
@@ -63,10 +66,55 @@ Here's a brief overview of those core files:
 |@nestjs/typeorm| TypeORM is definitely the most mature `Object Relational Mapper (ORM)` available in the node.js world. Since it's written in `TypeScript`, it works pretty well with the Nest framework. We have to `register all entities` into typeORM config.|
 |mysql2| It used to perform operation with mysql database.| 
 
+### FAQ's
+## What should I take care after create module?
+We have to add dependency at 2 places:
+- Register `Entity` at typeorm configuration file 
+- Register `Module` at `import of App Module`.
+
+## How to generate module?
+```
+ nest g resource [module_name]
+```
+
+## What modules consider?
+Module consider mainly 4 files:
+- Module
+  `Module consider mainly four parts:` 
+    * imports(it import `entity of used modules`, `external modules` and `services`), 
+    * controllers, 
+    * providers(consider `services`), 
+    * exports(consider `Modules and Services`)
+- Controller
+- Service(`Inject entity` in constructor)
+- Entity
+
+## What is Swagger?
+Swagger is an `API specification`. `Simplify API development` for users, teams and enterprises with the Swagger open source and professional toolset.
+
+## Most use of tags to create Swagger documentation?
+|Tags     | Explanation      | 
+| ------------ |   ------------ | 
+| @ApiTags | It's `controller` level tag. It's uniquely identify to controller.|
+|@ApiOkResponse | It's `router` level tag. It's used to identify `response type`.|
+|@ApiBearerAuth| It's `router` level tag. It's used to `authenticate token`. |
+|@ApiQuery| It's `router` level tag. It's used to identify `query` parameter.
+|@ApiOperation| It's `router` level tag. It's used to `display description` about api.|
+|@ApiProperty | It used in `DTO` file. It seems body parameter for specific route.|
+
+
+## Most used exception tags?
+|Tags     | Explanation  | 
+| ------------ |   ------------ | 
+| ConflictException | If record is `already exists`.|
+| NotFoundException | If recoded is `not found`.|
+| BadRequestException| If record is `exist but not activate`. |
+| ForbiddenException| If record is `exist but not activate`.|
+| UnauthorizedException | If record is `exist but password or email doesn't match`.|
 
 ### Features
 ***
 List of features are mentioned below:
 ```
-Api development,
+CRUD operations,
 ```
