@@ -1,29 +1,29 @@
 # NESTJS
 ***
 ## Table of Contents
-1. [Description](#description)
-2. [Prerequisites Installation](#prerequisites_installation)
-3. [Tools & Technologies](#tools_&_technologies)
-4. [Clone this boilerplate](#installation_of_boiler-plate)
-5. [Structure of NestJs](#structure_of_nestjs)
-6. [Dependencies](#explanation_of_nestjs_basic_dependencies)
-7. [Features](#features)
-8. [FAQ's](#FAQ's)
+1. [Description](#Description)
+2. [Prerequisites Installation](#Prerequisites)
+3. [Tools & Technologies](#Tools)
+4. [Clone this boilerplate](#Boilerplate)
+5. [Structure of NestJs](#Structure)
+6. [Dependencies](#Dependencies)
+7. [Features](#Features)
+8. [FAQ's](#FAQ)
 
 
-# Description
+# Description<a name="Description"></a>
 ### Why did I build this project?
 I have tried to create boilerplate of NESTJS which used Typescript as well as Nodejs in 3 tier architecture. I have tried to create basic boiler-plate which we can use while create new project and develop project in standard approach.
 
 ### What is the workflow of this project?
 This project has tried to write API as well as documentation using OpenAPI(Swagger). It has used `JWT authentication` using `passport js`. Even we have used scheduler to perform task at recurring time interval.
 
-# Prerequisites installation
+# Prerequisites installation<a name="Prerequisites"></a>
 ```
 Nodejs(>= 10.13.0)
 ```
 
-### Tools & Technologies
+### Tools & Technologies<a name="Tools"></a>
 ***
 A list of tools & technologies used within the project:
 * Technology: TypeScript, NodeJs, ExpressJs
@@ -42,7 +42,7 @@ A little intro about how to setup nest js:
 * npm start
 
 
-### Installation of boiler-plate
+### Installation of boiler-plate<a name="Boilerplate"></a>
 ***
 A little intro about to setup this boilerplate: 
 ```
@@ -51,7 +51,7 @@ $ cd nestjs_boilerplate
 $ npm start
 ```
 
-### Structure of NESTJS
+### Structure of NESTJS<a name="Structure"></a>
 Here's a brief overview of basic files:
 |Files     | Explanation      | 
 | ------------ |   ------------ | 
@@ -61,7 +61,7 @@ Here's a brief overview of basic files:
 | app.module.ts | The `root module` of the application. We have to `register all modules` in app.module file.|
 | app.service.ts | A basic `service` with a single method. |
 
-### Explanation of nestjs basic dependencies
+### Explanation of nestjs basic dependencies<a name="Dependencies"></a>
 |Dependencies     | Explanation      | 
 | ------------ |   ------------ | 
 | @nestjs/config | It helps to `set configuration` such as `environment file`|
@@ -71,7 +71,7 @@ Here's a brief overview of basic files:
 |@nestjs/typeorm| TypeORM is definitely the most mature `Object Relational Mapper (ORM)` available in the node.js world. Since, it's written in `TypeScript`, it works pretty well with the Nest framework. We have to `register all entities` into typeORM config.|
 |mysql2| It used to perform operation with mysql database.| 
 
-### Features
+### Features<a name="Features"></a>
 ***
 List of features are mentioned below:
 * CRUD operations,
@@ -79,7 +79,7 @@ List of features are mentioned below:
 * Schedule task at recurring interval
 * Api Documentation using OpenAPI(Swagger)
 
-### FAQ's
+### FAQ's<a name="FAQ"></a>
 ## What should I take care after create new module?
 We have to add dependency at 2 places:
 - Register `Entity` at typeorm configuration file 
