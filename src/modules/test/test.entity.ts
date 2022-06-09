@@ -10,4 +10,7 @@ export class TbTests {
 
     @Column()
     address: string;
+
+    @Column({ default: false })
+    isActive: boolean;
 }

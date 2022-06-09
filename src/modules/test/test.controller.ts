@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Request, UseGuards } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { messages } from './constants';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 //ApiTags used to provide controller name in Swagger
 @ApiTags('Test')
@@ -12,9 +13,11 @@ export class TestController {
   //Constructor must have to register service.
   constructor(private readonly testService: TestService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('')
   //ApiOkResponse used to mention response type in Swagger
   @ApiOkResponse({ description: messages.testRecordCreated })
+  @ApiOperation({ description: 'Create new test record.' })
   async create(@Body() createTestDto: CreateTestDto, @Request() req) {
     const result = await this.testService.create(createTestDto);
     return {
@@ -23,9 +26,13 @@ export class TestController {
     }
   }
 
+  //this guard is used to authenticate the token
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOkResponse({ description: messages.testRecordFound })
   @ApiNotFoundResponse({ description: messages.testRecordNotFound })
+ //ApiOperation is used to provide description in Swagger documentation
+  @ApiOperation({ description: 'Find specific record' })
   async findAll() {
     const tests = await this.testService.findAll();
     if(!tests.length) {
@@ -37,6 +44,7 @@ export class TestController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOkResponse({ description: messages.testRecordFound })
   @ApiNotFoundResponse({ description: messages.testRecordNotFound })
@@ -50,9 +58,11 @@ export class TestController {
     return {message: messages.testRecordFound, data: test }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestDto: UpdateTestDto) {
-    return this.testService.update(+id, updateTestDto);
+  async update(@Param('id') id: number, @Body() updateTestDto: UpdateTestDto) {
+    const result = await this.testService.updateTest(id, updateTestDto);
+    return {message: messages.testRecordUpdated, data: result};
   }
 
   @Delete(':id')

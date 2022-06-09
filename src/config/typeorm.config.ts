@@ -4,6 +4,7 @@ import {
     TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 //Import all Entities here
+import { User } from 'src/modules/users/user.entity';
 import { TbTests } from 'src/modules/test/test.entity';
 
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -20,7 +21,8 @@ export default class TypeOrmConfig {
             namingStrategy: new SnakeNamingStrategy(),
             //Register all entities here.
             entities: [
-                TbTests
+                TbTests,
+                User
             ],
             synchronize: true,
             logging: true,
