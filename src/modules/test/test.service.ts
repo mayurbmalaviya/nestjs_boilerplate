@@ -1,4 +1,5 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { messages } from './constants';
@@ -31,11 +32,31 @@ export class TestService {
     return test;
   }
 
-  update(id: number, updateTestDto: UpdateTestDto) {
-    return `This action updates a #${id} test`;
+  async updateTest(
+    testId: number,
+    objTest: UpdateTestDto,
+  ) {
+    const test = await this.testRepo.findOne({ where: {
+      id: testId,
+    }});
+    if (test == undefined) {
+      throw new NotFoundException(messages.testRecordNotFound);
+    }
+    if(objTest.name) {
+      test.name = objTest.name;
+    }
+    if(objTest.address) {
+      test.address = objTest.address;
+    }
+    return await this.testRepo.save(test);
   }
 
   remove(id: number) {
     return `This action removes a #${id} test`;
+  }
+
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  schedulerSampleTask() {
+    console.log(`Scheduler cronjob executed`);
   }
 }
